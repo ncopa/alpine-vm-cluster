@@ -3,7 +3,7 @@ alpine_branch=v3.14
 image_format=qcow2
 images_size=10G
 kernel_flavor=virt
-packages=openssh-server e2fsprogs
+packages=openssh-server e2fsprogs dhcpcd
 keypath=$(HOME)/.ssh/id_ed25519
 
 DOAS=doas
@@ -25,7 +25,7 @@ nodelist.txt: variables.tf libvirt.tf providers.tf meta-data alpine-cloud.img
 meta-data:
 	echo "local-hostname: \$${hostname}" > $@
 
-alpine-cloud.img: configure.sh repositories
+alpine-cloud.img: diskimage-configure.sh repositories
 	$(DOAS) alpine-make-vm-image --branch $(alpine_branch) \
 		--image-format $(image_format) \
 		--image-size $(images_size) \
@@ -34,7 +34,7 @@ alpine-cloud.img: configure.sh repositories
 		--script-chroot \
 		-- \
 		$@.tmp \
-		./configure.sh "$(shell cat $(keypath).pub)"
+		./diskimage-configure.sh "$(shell cat $(keypath).pub)"
 	$(DOAS) chown $(shell id -u):$(shell id -g) $@.tmp
 	mv $@.tmp $@
 
