@@ -16,7 +16,7 @@ resource "libvirt_volume" "alpine-qcow2" {
   for_each = toset(local.nodes)
   name = "${each.value}-qcow2"
   pool = libvirt_pool.alpine-cloud.name
-  source = "./alpine-cloud.img"
+  source = "./vm-image/alpine-cloud.img"
   format = "qcow2"
 }
 
