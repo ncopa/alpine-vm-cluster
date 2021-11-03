@@ -27,17 +27,12 @@ eval $(ssh-add ~/.ssh/id_ed25519)
 
 The file `variables.tf` has some variables for the cluster:
 
-memory
-: amount of RAM (in megabytes) for ach virtual machine.
-
-vcpu
-: number of virtual CPUs for each virtual machine.
-
-controller_nodes
-: number of controllers in the kubernetes cluster
-
-worker_nodes
-: number of workers for the controller node
+| variable         | explanation                                          |
+| ---------------- | ---------------------------------------------------- |
+| memory           | amount of RAM (in megabytes) for ach virtual machine.|
+| vcpu             | number of virtual CPUs for each virtual machine.     |
+| controller_nodes | number of controllers in the kubernetes cluster      |
+| worker_nodes     | number of workers for the controller node            |
 
 ## How to build the cluster
 
